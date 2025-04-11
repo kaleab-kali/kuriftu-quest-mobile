@@ -20,16 +20,14 @@ const String verify = '/verify';
 const String profile = '/profile';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: splash,
+  initialLocation: layout,
   routes: [
-    GoRoute(
-        path: onBoarding,
-        builder: (context, state) => const OnboardingScreen()),
+    GoRoute(path: onBoarding,builder: (context, state) => const OnboardingScreen()),
     GoRoute(path: splash, builder: (context, state) => const SplashScreen()),
     GoRoute(path: layout, builder: (context, state) => const MainLayout()),
     GoRoute(path: login, builder: (context, state) => const LoginPage()),
     GoRoute(path: signUp, builder: (context, state) => const SignupPage()),
     GoRoute(path: verify, builder: (context, state) => const VerifyPage()),
- GoRoute(path: profile, builder: (context, state) => const ProfilePage()),
+    GoRoute(path: profile, builder: (context, state) => const ProfileScreen()),
   ],
 );
