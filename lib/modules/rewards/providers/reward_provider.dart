@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import '../models/reward_model.dart';
 
 class RewardProvider with ChangeNotifier {
-  List<Reward> _rewards = [];
+  final List<Reward> _rewards = [];
 
   List<Reward> get rewards => _rewards;
 

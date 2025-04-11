@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kuriftuquest/core/constants/colors/colors.dart';
 import 'package:kuriftuquest/core/constants/text_styles.dart';
-import 'package:kuriftuquest/core/constants/dimentsions.dart';
-import 'package:kuriftuquest/core/constants/app_constants.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

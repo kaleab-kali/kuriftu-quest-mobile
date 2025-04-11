@@ -1,4 +1,5 @@
 
+import 'package:kuriftuquest/modules/challenges/providers/challenges_provider.dart';
 import 'package:kuriftuquest/modules/profile/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => VerifyProvider()),
         ChangeNotifierProvider(create: (_) => SignupProvider()),
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => ChallengesProvider()),
         // ChangeNotifierProvider(create: (_) => OrderProvider()),
         // ChangeNotifierProvider(create: (_) => HomeProvider()),
       ],
