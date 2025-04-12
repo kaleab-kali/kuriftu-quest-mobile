@@ -1,10 +1,10 @@
-
 import 'package:kuriftuquest/core/constants/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:kuriftuquest/core/constants/text_styles.dart';
 import '../../auth/providers/auth_provider.dart';
+import 'package:flutter/cupertino.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -29,9 +29,26 @@ class _SignupScreenState extends State<SignupScreen> {
       email: authProvider.emailController.text.trim(),
       password: authProvider.passwordController.text,
     );
-
     if (authProvider.error == null && mounted) {
-      context.go('/layout');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'A verification email has been sent to your account. Please verify your email to proceed with login.',
+            style: AppTextStyles.bodyText1.copyWith(color: Colors.green[100]),
+          ),
+          backgroundColor: Colors.green[700],
+          duration: const Duration(seconds: 5),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      );
+
+      // Navigate to login page
+      authProvider.clearForm();
+
+      context.go('/login');
     }
   }
 
@@ -55,20 +72,18 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 1.0),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 24),
                 // Logo
                 Image.asset(
                   'assets/images/logo.png',
                   height: 100,
                   width: 100,
                 ),
-                const SizedBox(height: 24),
                 Text(
                   'Join Kuriftu Quest',
                   style: AppTextStyles.headline1.copyWith(
@@ -214,8 +229,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   child: authProvider.isLoading
-                      ? const CircularProgressIndicator(
-                          color: AppColors.onPrimary,
+                      ? const CupertinoActivityIndicator(
+                          color: AppColors.primary,
                         )
                       : const Text('Create Account'),
                 ),

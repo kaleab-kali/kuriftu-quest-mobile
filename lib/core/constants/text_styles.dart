@@ -35,7 +35,7 @@ class AppTextStyles {
   );
   static const TextStyle bodyText2 = TextStyle(
     color: Colors.black,
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: FontWeight.w700,
     fontFamily: AppAssets.complimentaryFont,
   );

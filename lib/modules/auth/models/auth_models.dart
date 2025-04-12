@@ -39,29 +39,29 @@ class User {
 }
 
 class AuthResponse {
-  final String token;
-  final String userId;
-  final User user;
+  final bool success;
+  final Map<String, dynamic> data;
+  final String? message;
 
   AuthResponse({
-    required this.token,
-    required this.userId,
-    required this.user,
+    required this.success,
+    required this.data,
+    this.message,
   });
 
   factory AuthResponse.fromJson(Map<String, dynamic> json) {
     return AuthResponse(
-      token: json['token'],
-      userId: json['userId'],
-      user: User.fromJson(json['user']),
+      success: json['success'] ?? false,
+      data: json['data'] ?? {},
+      message: json['message'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'token': token,
-      'userId': userId,
-      'user': user.toJson(),
+      'success': success,
+      'data': data,
+      'message': message,
     };
   }
 }

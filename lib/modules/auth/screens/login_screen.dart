@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kuriftuquest/common/custom_button.dart';
-import 'package:kuriftuquest/core/constants/app_constants.dart';
+
 import 'package:kuriftuquest/core/constants/colors/colors.dart';
-import 'package:kuriftuquest/core/errors/error_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:kuriftuquest/core/constants/text_styles.dart';
 import '../../auth/providers/auth_provider.dart';
@@ -33,7 +32,21 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     if (authProvider.error == null && mounted) {
-      context.go('/home');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Successfully logged in!',
+            style: AppTextStyles.bodyText1.copyWith(color: Colors.green[100]),
+          ),
+          backgroundColor: Colors.green[700],
+          duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      );
+      context.go('/layout');
     }
   }
 
@@ -173,14 +186,17 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: authProvider.isLoading
-                      ? const CircularProgressIndicator(
-                          color: AppColors.onPrimary,
+                      ? const CupertinoActivityIndicator(
+                          color: AppColors.primary,
                         )
                       : const Text('Sign In'),
                 ),
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () {
+                    final authProvider =
+                        Provider.of<AuthProvider>(context, listen: false);
+                    authProvider.clearForm();
                     context.go('/signup');
                   },
                   child: Text(

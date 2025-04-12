@@ -104,50 +104,50 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 24),
 
               // Membership Tier Card
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.onPrimary,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.secondary),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Gold Tier',
-                      style: AppTextStyles.headline2.copyWith(
-                        color: AppColors.primary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    LinearProgressIndicator(
-                      value: 0.8, // 400/500 points
-                      backgroundColor: AppColors.onSurfaceLight(context),
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(AppColors.secondary),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      '400/500 Pts',
-                      style: AppTextStyles.bodyText1.copyWith(
-                        color: AppColors.tertiaryColor,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Gold Benefits:',
-                      style: AppTextStyles.headline3.copyWith(
-                        color: AppColors.primary,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _buildBenefitItem('Free late checkout'),
-                    _buildBenefitItem('Priority bookings'),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
+              // Container(
+              //   padding: const EdgeInsets.all(16),
+              //   decoration: BoxDecoration(
+              //     color: AppColors.onPrimary,
+              //     borderRadius: BorderRadius.circular(12),
+              //     border: Border.all(color: AppColors.secondary),
+              //   ),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         'Gold Tier',
+              //         style: AppTextStyles.headline2.copyWith(
+              //           color: AppColors.primary,
+              //         ),
+              //       ),
+              //       const SizedBox(height: 8),
+              //       LinearProgressIndicator(
+              //         value: 0.8, // 400/500 points
+              //         backgroundColor: AppColors.onSurfaceLight(context),
+              //         valueColor:
+              //             AlwaysStoppedAnimation<Color>(AppColors.secondary),
+              //       ),
+              //       const SizedBox(height: 8),
+              //       Text(
+              //         '400/500 Pts',
+              //         style: AppTextStyles.bodyText1.copyWith(
+              //           color: AppColors.tertiaryColor,
+              //         ),
+              //       ),
+              //       const SizedBox(height: 16),
+              //       Text(
+              //         'Gold Benefits:',
+              //         style: AppTextStyles.headline3.copyWith(
+              //           color: AppColors.primary,
+              //         ),
+              //       ),
+              //       const SizedBox(height: 8),
+              //       _buildBenefitItem('Free late checkout'),
+              //       _buildBenefitItem('Priority bookings'),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 24),
 
               // AI-Personalized Challenges
               Text(
