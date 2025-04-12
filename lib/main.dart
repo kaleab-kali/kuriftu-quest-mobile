@@ -3,6 +3,7 @@ import 'package:kuriftuquest/modules/challenges/providers/challenges_provider.da
 import 'package:kuriftuquest/modules/challenges/providers/sub_challenges_provider.dart';
 import 'package:kuriftuquest/modules/profile/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:kuriftuquest/modules/scan/providers/scan_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:kuriftuquest/modules/auth/providers/auth_provider.dart';
 import 'package:kuriftuquest/modules/auth/providers/signup_provider.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => ChallengesProvider()),
         ChangeNotifierProvider(create: (_) => SubChallengesProvider()),
-        // ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => ScanProvider()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

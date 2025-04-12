@@ -1,31 +1,35 @@
-class ScanResult {
+class ScanModel {
   final String id;
   final String code;
   final DateTime timestamp;
-  final bool isValid;
+  final String? location;
+  final int points;
 
-  ScanResult({
+  ScanModel({
     required this.id,
     required this.code,
     required this.timestamp,
-    required this.isValid,
+    this.location,
+    required this.points,
   });
 
-  factory ScanResult.fromJson(Map<String, dynamic> json) {
-    return ScanResult(
-      id: json['id'] as String,
+  factory ScanModel.fromJson(Map<String, dynamic> json) {
+    return ScanModel(
+      id: json['_id'] as String,
       code: json['code'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
-      isValid: json['isValid'] as bool,
+      location: json['location'] as String?,
+      points: json['points'] as int,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      '_id': id,
       'code': code,
       'timestamp': timestamp.toIso8601String(),
-      'isValid': isValid,
+      'location': location,
+      'points': points,
     };
   }
 }

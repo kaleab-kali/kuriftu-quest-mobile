@@ -21,7 +21,7 @@
 //               const Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
 //           iconSize: 30,
 //           activeColor: AppColors.primary,
-          
+
 //           items: const [
 //             BottomNavigationBarItem(
 //               icon: Icon(Icons.home),
@@ -35,7 +35,7 @@
 //               icon: Icon(Icons.camera_alt),
 //               label: 'Camera',
 //             ),
-           
+
 //             BottomNavigationBarItem(
 //               icon: Icon(Icons.card_giftcard),
 //               label: 'Reward',
@@ -84,7 +84,7 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = const [
+  final List<Widget> _screens =  [
     HomeScreen(),
     ChallengesScreen(),
     ScanScreen(),

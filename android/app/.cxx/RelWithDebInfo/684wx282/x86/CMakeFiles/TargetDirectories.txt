@@ -1,2 +1,0 @@
-/home/melak/Documents/projects/onyxlion/kuriftu-quest-mobile/android/app/.cxx/RelWithDebInfo/684wx282/x86/CMakeFiles/edit_cache.dir
-/home/melak/Documents/projects/onyxlion/kuriftu-quest-mobile/android/app/.cxx/RelWithDebInfo/684wx282/x86/CMakeFiles/rebuild_cache.dir

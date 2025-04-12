@@ -1,5 +1,4 @@
 import 'package:kuriftuquest/layout/screens/main_layout.dart';
-import 'package:kuriftuquest/modules/challenges/models/sub_challenge_model.dart';
 import 'package:kuriftuquest/modules/challenges/screens/sub_challenges_screen.dart';
 // import 'package:elex_driver/modules/gas/screens/gas_screen.dart';
 // import 'package:elex_driver/modules/map/screens/map_screen.dart';
@@ -23,7 +22,7 @@ const String subChallengs = '/subChallengs/:challengeId';
 const String profile = '/profile';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: splash,
+  initialLocation: layout,
   routes: [
     GoRoute(
         path: onBoarding,
