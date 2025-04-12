@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/auth_models.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
   String? _token;
@@ -9,7 +10,10 @@ class AuthProvider with ChangeNotifier {
   User? _user;
   bool _isLoading = false;
   String? _error;
-
+  AuthProvider() {
+    loadTokenFromStorage();
+    fetchUserProfiles();
+  }
   // Form controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -78,6 +82,31 @@ class AuthProvider with ChangeNotifier {
     _isConfirmPasswordValid = false;
     _error = null;
     notifyListeners();
+  }
+
+  // Save token to local storage
+  Future<void> _saveTokenToStorage(String token, String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', token);
+    await prefs.setString('user_id', userId);
+  }
+
+  // Load token from local storage
+  Future<void> loadTokenFromStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString('auth_token');
+    _userId = prefs.getString('user_id');
+    if (_token != null) {
+      await getUserProfile();
+    }
+    notifyListeners();
+  }
+
+  // Remove token from local storage
+  Future<void> _removeTokenFromStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('auth_token');
+    await prefs.remove('user_id');
   }
 
   Future<void> signup({
@@ -178,6 +207,10 @@ class AuthProvider with ChangeNotifier {
           );
           _token = data['session']['access_token'];
           _userId = userData['id'];
+
+          // Save token to local storage
+          await _saveTokenToStorage(_token!, _userId!);
+
           _error = null;
           clearForm();
         } else {
@@ -196,6 +229,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> logout() async {
+    await _removeTokenFromStorage();
     _token = null;
     _userId = null;
     _user = null;
@@ -233,6 +267,75 @@ class AuthProvider with ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  Future<void> fetchUserProfiles() async {
+    if (_token == null) {
+      // Try to load token from storage if not available
+      final prefs = await SharedPreferences.getInstance();
+      _token = prefs.getString('auth_token');
+
+      if (_token == null) {
+        _error = 'Not authenticated';
+        notifyListeners();
+        return;
+      }
+    }
+
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/user_profiles'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $_token',
+        },
+      );
+
+      final data = json.decode(response.body);
+      debugPrint(
+          "User profiles response: ${const JsonEncoder.withIndent('  ').convert(data)}");
+
+      if (response.statusCode == 200) {
+        if (data['status'] == 'success' && data['data'] != null) {
+          final userData = data['data'];
+          _user = User(
+            id: userData['id'],
+            email: userData['email'],
+            name: "${userData['first_name']} ${userData['last_name']}",
+            profileImage: userData['profile_url'],
+            points: userData['points'] ?? 0,
+            membershipTier: _determineMembershipTier(userData['points'] ?? 0),
+          );
+          _error = null;
+        } else {
+          _error = data['message'] ?? 'Failed to fetch user profiles.';
+        }
+      } else {
+        _error = data['message'] ?? 'Failed to fetch user profiles.';
+      }
+    } catch (e) {
+      debugPrint("Error fetching user profiles: $e");
+      _error = 'An error occurred while fetching user profiles.';
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+  
+  String _determineMembershipTier(int points) {
+    if (points >= 5000) {
+      return 'Platinum';
+    } else if (points >= 3000) {
+      return 'Gold';
+    } else if (points >= 1000) {
+      return 'Silver';
+    } else {
+      return 'Bronze';
     }
   }
 }

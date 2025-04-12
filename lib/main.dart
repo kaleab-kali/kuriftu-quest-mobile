@@ -1,4 +1,3 @@
-
 import 'package:kuriftuquest/modules/challenges/providers/challenges_provider.dart';
 import 'package:kuriftuquest/modules/challenges/providers/sub_challenges_provider.dart';
 import 'package:kuriftuquest/modules/profile/providers/profile_provider.dart';

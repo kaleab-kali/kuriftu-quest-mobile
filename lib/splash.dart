@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kuriftuquest/core/constants/colors/colors.dart';
+import 'package:kuriftuquest/modules/auth/providers/auth_provider.dart';
 import 'package:kuriftuquest/routes/app_router.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -37,9 +39,18 @@ class _SplashScreenState extends State<SplashScreen>
     // Start the animation
     _controller.repeat(reverse: false);
 
-    Future.delayed(const Duration(seconds: 2), () {
-      // Use context.go() to navigate to the onboarding screen
-      context.go(onBoarding); // Onboarding screen route
+    // Check for token in local storage and navigate accordingly
+    Future.delayed(const Duration(seconds: 2), () async {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      await authProvider.loadTokenFromStorage();
+      
+      if (authProvider.token != null) {
+        // User is logged in, go to main layout
+        context.go('/layout');
+      } else {
+        // User is not logged in, go to onboarding
+        context.go(onBoarding);
+      }
     });
   }
 

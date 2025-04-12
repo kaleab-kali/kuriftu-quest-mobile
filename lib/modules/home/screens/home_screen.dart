@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kuriftuquest/core/constants/colors/colors.dart';
 import 'package:kuriftuquest/core/constants/text_styles.dart';
+import 'package:kuriftuquest/modules/auth/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+       final authProvider = Provider.of<AuthProvider>(context);
+    final user = authProvider.user;
+    print(user);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary.withOpacity(0.1),
@@ -77,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Welcome back, Ato Mengesha!',
+                          "wellcome back ${user?.email}",
                           style: AppTextStyles.bodyText2.copyWith(
                             color: AppColors.onPrimary,
                           ),
@@ -89,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                                 color: AppColors.secondary, size: 16),
                             const SizedBox(width: 4),
                             Text(
-                              '2,000 Pts',
+                              "${user?.points} Pts",
                               style: AppTextStyles.bodyText1.copyWith(
                                 color: AppColors.onPrimary,
                               ),
