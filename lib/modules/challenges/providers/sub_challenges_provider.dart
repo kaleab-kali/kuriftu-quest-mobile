@@ -40,7 +40,8 @@ class SubChallengesProvider with ChangeNotifier {
     {
       '_id': 'sub4',
       'title': 'Nature Walk',
-      'description': 'Take a guided nature walk and identify 5 local plant species',
+      'description':
+          'Take a guided nature walk and identify 5 local plant species',
       'points': 40,
       'status': 'pending'
     },
@@ -55,12 +56,12 @@ class SubChallengesProvider with ChangeNotifier {
     try {
       // Simulate network delay
       await Future.delayed(const Duration(seconds: 2));
-      
+
       // Use dummy data instead of API call
       _subChallenges = _dummySubChallenges
           .map((json) => SubChallenge.fromJson(json))
           .toList();
-      
+
       /* Commented out actual API call
       final response = await http.get(
         Uri.parse('$_baseUrl/challenges/$challengeId/sub-challenges'),
